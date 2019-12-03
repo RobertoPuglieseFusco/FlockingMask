@@ -34,8 +34,8 @@ int XY_XZ_YZ = 1;
 RadioButton trackingPlane;
 
 void setup() {
-  //fullScreen(P3D);
-  size(1280,720,P3D);
+  fullScreen(P3D);
+  //size(1280,720,P3D);
 
   setupKeystone();
   kinect = new Kinect(this);
