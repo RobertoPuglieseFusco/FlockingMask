@@ -19,7 +19,8 @@ import controlP5.*;
 
 ControlP5 cp5;
 
-boolean toggleFullscreen, toggleGui = false;
+boolean toggleFullscreen = false;
+boolean toggleFullscreentoggleGui = false;
 
 float radiusBoid;
 float maxforce;    // Maximum steering force
