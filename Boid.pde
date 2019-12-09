@@ -59,6 +59,7 @@ class Boid {
     velocity.add(acceleration);
     // Limit speed
     velocity.limit(maxspeed);
+    velocity.mult(1 + mid);
     position.add(velocity);
     // Reset accelertion to 0 each cycle
     acceleration.mult(0);
@@ -95,7 +96,7 @@ class Boid {
     pg.translate(position.x, position.y);
     pg.rotate(theta);
     pg.tint(255, opacity);
-    pg.image(boidImage, 0, 0, radiusBoid*sizePersonal, radiusBoid*sizePersonal);
+    pg.image(boidImage, 0, 0, radiusBoid*sizePersonal*(1+high), radiusBoid*sizePersonal*(1+low));
 
     //pg.beginShape(TRIANGLES);
     //pg.vertex(0, -r*2);
@@ -155,7 +156,7 @@ class Boid {
   // Alignment
   // For every nearby boid in the system, calculate the average velocity
   PVector align (ArrayList<Boid> boids) {
-    float neighbordist = 50;
+    float neighbordist = 150;
     PVector sum = new PVector(0, 0);
     int count = 0;
     for (Boid other : boids) {
@@ -202,7 +203,7 @@ class Boid {
   // Cohesion
   // For the average position (i.e. center) of all nearby boids, calculate steering vector towards that position
   PVector cohesion (ArrayList<Boid> boids) {
-    float neighbordist = 50;
+    float neighbordist = 350;
     PVector sum = new PVector(0, 0);   // Start with empty vector to accumulate all positions
     int count = 0;
     for (Boid other : boids) {

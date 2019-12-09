@@ -29,7 +29,11 @@ void setupControlsUI(){
 
   cp5.addSlider("topCrop").setPosition(30, y+=20).setRange(0, 500).setValue(0).setSize(400, 15);
   cp5.addSlider("bottomCrop").setPosition(30, y+=20).setRange(0, 500).setValue(0).setSize(400, 15);
+  
+  
+   cp5.addSlider("topLayerVideoOpacity").setPosition(30, y+=20).setRange(0, 255).setValue(200).setSize(400, 15);
 
+  
 cp5.getProperties().setFormat(ControlP5.SERIALIZED);
   cp5.setAutoDraw(false);
 }

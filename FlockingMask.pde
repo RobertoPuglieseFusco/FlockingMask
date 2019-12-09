@@ -13,6 +13,8 @@ Flock flock;
 PImage img;
 Movie movie;
 
+Movie topLayerVideo;
+
 PImage boidImage;
 PGraphics pg;
 import controlP5.*;
@@ -33,9 +35,11 @@ boolean debug = false;
 int XY_XZ_YZ = 1;
 RadioButton trackingPlane;
 
+int topLayerVideoOpacity;
+
 void setup() {
-  fullScreen(P3D);
-  //size(1280,720,P3D);
+  //fullScreen(P3D);
+  size(1280, 720, P3D);
 
   setupKeystone();
   kinect = new Kinect(this);
@@ -43,7 +47,9 @@ void setup() {
 
   pg = createGraphics(width, height);
   flock = new Flock();
-  
+
+  topLayerVideo = new Movie(this, "topLayer.mp4");
+  topLayerVideo.loop();
   // read all the video filenames in the videos directory
   path = dataPath("") + "/videos/";
 
@@ -63,12 +69,14 @@ void setup() {
   cp5 = new ControlP5(this);
   setupControlsUI();
 
-  maxspeed = 2;
-  maxforce = 0.03;
+  maxspeed = 3;
+  maxforce = 0.3;
   center = new PVector(0, 0);
   com = new PVector(0, 0);
   ks.load(dataPath("") + "/keystone.xml");
   cp5.loadProperties(dataPath("") + "/default.ser");
+
+  setupOSC();
 }
 
 void movieEvent(Movie m) {
@@ -77,11 +85,11 @@ void movieEvent(Movie m) {
 
 void draw() {
 
+  tint(255, 255);
   center.set(com);
   // Convert the mouse coordinate into surface coordinates
   // this will allow you to use mouse events inside the 
   // surface from your screen. 
-  PVector surfaceMouse = surface.getTransformedMouse();
 
   // Draw the scene, offscreen
   offscreen.beginDraw();
@@ -106,6 +114,10 @@ void draw() {
   surface.render(offscreen);
 
   drawKinect();
+
+  tint(255, topLayerVideoOpacity);
+  image(movie, 0, 0, width, height);
+
   if (toggleGui) {
     cp5.draw();
   }
@@ -139,8 +151,8 @@ void keyPressed() {
 
   case 'l':
     // loads the saved layout
- ks.load(dataPath("") + "/keystone.xml");
-  cp5.loadProperties(dataPath("") + "/default.ser");
+    ks.load(dataPath("") + "/keystone.xml");
+    cp5.loadProperties(dataPath("") + "/default.ser");
     println("loaded preset");
     break;
 
