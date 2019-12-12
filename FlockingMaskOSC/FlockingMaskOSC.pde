@@ -116,7 +116,7 @@ void draw() {
   drawKinect();
 
   tint(255, topLayerVideoOpacity);
-  image(movie, 0, 0, width, height);
+  image(topLayerVideo, 0, 0, width, height);
 
   if (toggleGui) {
     cp5.draw();

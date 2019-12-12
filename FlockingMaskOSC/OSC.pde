@@ -22,6 +22,37 @@ void setupOSC() {
 
 void oscEvent(OscMessage theOscMessage) {
   /* check if theOscMessage has the address pattern we are looking for. */
+  
+  if(theOscMessage.checkAddrPattern("/TopLayerVideoOpacity")==true) {
+    /* check if the typetag is the right one. */   
+      /* parse theOscMessage and extract the values from the osc message arguments. */
+      topLayerVideoOpacity = int(theOscMessage.get(0).floatValue()*255); 
+      //println("received mid value " + mid);
+      return;   
+  } 
+  if(theOscMessage.checkAddrPattern("/SeparationForce")==true) {
+    /* check if the typetag is the right one. */   
+      /* parse theOscMessage and extract the values from the osc message arguments. */
+      separationForce = theOscMessage.get(0).floatValue(); 
+      //println("received mid value " + mid);
+      return;   
+  }
+  if(theOscMessage.checkAddrPattern("/AlignmentForce")==true) {
+    /* check if the typetag is the right one. */   
+      /* parse theOscMessage and extract the values from the osc message arguments. */
+      alignmentForce = theOscMessage.get(0).floatValue(); 
+      //println("received mid value " + mid);
+      return;   
+  }
+   if(theOscMessage.checkAddrPattern("/CohesionForce")==true) {
+    /* check if the typetag is the right one. */   
+      /* parse theOscMessage and extract the values from the osc message arguments. */
+      cohesionForce = theOscMessage.get(0).floatValue(); 
+      //println("received mid value " + mid);
+      return;   
+  }
+
+  
     if(theOscMessage.checkAddrPattern("/Low")==true) {
     /* check if the typetag is the right one. */   
       /* parse theOscMessage and extract the values from the osc message arguments. */
